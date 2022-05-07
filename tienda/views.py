@@ -5,9 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
-from .forms import ProveedorForm
+from .forms import ProveedorForm, ProductoForm
 from .models import Cliente
 from .models import Proveedor
+from .models import Producto
 
 
 # Create your views here.
@@ -40,6 +41,14 @@ def proveedores(request):
     }
     return render(request, 'tienda/proveedores.html', context)
 
+@login_required
+def listadoprod(request):
+    producto=Producto.objects.all().values()
+    context = {
+    'productos': producto,
+    }
+    return render(request, 'tienda/listadoprod.html', context)
+
 @staff_member_required
 @login_required
 def registroprov(request):
@@ -64,6 +73,34 @@ def registroprov(request):
     else:
         form=ProveedorForm() 
         return render(request, 'tienda/registroprov.html', {"form":form}) 
+
+@staff_member_required
+@login_required
+def registroprod(request):
+
+    form=ProductoForm()
+
+    if request.method == 'POST':
+		
+        form = ProductoForm(request.POST)
+
+        if form.is_valid():
+            producto=Producto()
+            producto.nombre=form.cleaned_data["nombre"]
+            producto.categoria=form.cleaned_data["categoria"]
+            producto.marca=form.cleaned_data["marca"]
+            producto.precio=form.cleaned_data["precio"]
+            producto.stock=form.cleaned_data["stock"]
+            producto.color=form.cleaned_data["color"]
+            producto.talla=form.cleaned_data["talla"]
+            producto.imagen=form.cleaned_data["imagen"]
+            producto.save()
+            messages.success(request, 'Los datos han sido guardados satisfactoriamente')
+        else: messages.error('Inválido')
+        return redirect('index')
+    else:
+        form=ProductoForm() 
+        return render(request, 'tienda/registroprod.html', {"form":form}) 
 
 
 def register_user(request):
@@ -102,6 +139,3 @@ def logout_user(request):
 	logout(request)
 	messages.info(request, "Haz cerrado sesión exitosamente.") 
 	return redirect('index')
-
-
-

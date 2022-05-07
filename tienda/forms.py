@@ -3,34 +3,22 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from django.forms import ModelForm
 from .models import Proveedor
+from .models import Producto
 
 
 class ProveedorForm(ModelForm):
 
-    CATEGORIA_CHOICES=( 
-
-    ("1", "Hombre"), 
-
-    ("2", "Mujer"), 
-
-    ("3", "Niños"), 
-
-    ("4", "Mascotas"), 
-)      
-
     class Meta:
         model=Proveedor
-        fields=['nombre', 'razon_social', 'telefono', 'correo_electronico', 'categoria']
+        fields=['nombre', 'marca', 'telefono', 'correo_electronico']
     
     labels = {
         'nombre':  'Nombre de representante',
-        'razon_social': 'Razón social',
+        'marca': 'Marca',
         'telefono': 'Teléfono de contacto',
         'correo_electronico': 'Email',
-        'categoria': 'Categoría de productos',
     }
 
-    categoria= forms.ChoiceField(choices=CATEGORIA_CHOICES)
 
 class NewUserForm(UserCreationForm):
 	email = forms.EmailField(required=True)
@@ -46,7 +34,49 @@ class NewUserForm(UserCreationForm):
 			user.save()
 		return user
 
-            
+class ProductoForm(ModelForm):
+    
+    CATEGORIA_CHOICES=( 
+
+    ("H", "Hombre"), 
+
+    ("M", "Mujer"), 
+
+    ("U", "Unisex"),
+
+    )
+
+    COLOR_CHOICES=( 
+
+    ("Blanco", "Blanco"), 
+
+    ("Negro", "Negro"), 
+
+    ("Gris", "Gris"),
+
+    )
+
+    TALLA_CHOICES=( 
+
+    ("Small", "S"), 
+
+    ("Medium", "M"), 
+
+    ("Large", "L"),
+
+    ("XLarge", "XL"),
+
+    )
+
+    class Meta:
+        model=Producto
+        fields=['nombre', 'categoria', 'marca', 'precio', 'stock', 'color', 'talla', 'imagen']
+
+    color= forms.ChoiceField(choices=COLOR_CHOICES)
+
+    talla= forms.ChoiceField(choices=TALLA_CHOICES)
+
+    categoria= forms.ChoiceField(choices=CATEGORIA_CHOICES)
 
             
 
