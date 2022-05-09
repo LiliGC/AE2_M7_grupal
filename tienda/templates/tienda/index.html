@@ -31,13 +31,13 @@
                   <a class="nav-link" href="#">Bienvenido, {{user.username}}</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#s1">Inicio</a>
+                  <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#s2">Productos</a>
+                  <a class="nav-link" href="{% url 'listadoprod' %}">Productos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#s3">Ubicación</a>
+                  <a class="nav-link" href="{% url 'registroprod' %}">Registro de Productos</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
@@ -53,7 +53,7 @@
                   <a class="nav-link" href="{% url 'registroprov' %}">Registro Proveedores</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/logout">Salir</a>
+                  <a class="nav-link" href="{% url 'logout' %}">Salir</a>
                 </li>
               {% else %}
                 <li class="nav-item">
@@ -61,6 +61,9 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/register_user">Registrar</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'catalogoprod' %}">Productos</a>
                 </li>
               {% endif %}
             </ul>

@@ -4,8 +4,15 @@ from .models import Proveedor
 from .models import Producto
 # Register your models here.
 
+class ProductoAdmin(admin.ModelAdmin):
+    list_display=['nombre', 'tipo_de_producto', 'categoria', 'marca', 'precio', 'stock']
+    list_editable=['precio', 'stock']
+    search_fields=['nombre']
+    list_filter=['marca', 'tipo_de_producto', 'categoria']
+
+
 admin.site.register(Cliente)
 
 admin.site.register(Proveedor)
 
-admin.site.register(Producto)
+admin.site.register(Producto, ProductoAdmin)

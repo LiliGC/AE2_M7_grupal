@@ -35,48 +35,9 @@ class NewUserForm(UserCreationForm):
 		return user
 
 class ProductoForm(ModelForm):
-    
-    CATEGORIA_CHOICES=( 
-
-    ("H", "Hombre"), 
-
-    ("M", "Mujer"), 
-
-    ("U", "Unisex"),
-
-    )
-
-    COLOR_CHOICES=( 
-
-    ("Blanco", "Blanco"), 
-
-    ("Negro", "Negro"), 
-
-    ("Gris", "Gris"),
-
-    )
-
-    TALLA_CHOICES=( 
-
-    ("Small", "S"), 
-
-    ("Medium", "M"), 
-
-    ("Large", "L"),
-
-    ("XLarge", "XL"),
-
-    )
-
     class Meta:
         model=Producto
-        fields=['nombre', 'categoria', 'marca', 'precio', 'stock', 'color', 'talla', 'imagen']
-
-    color= forms.ChoiceField(choices=COLOR_CHOICES)
-
-    talla= forms.ChoiceField(choices=TALLA_CHOICES)
-
-    categoria= forms.ChoiceField(choices=CATEGORIA_CHOICES)
+        fields=['nombre', 'tipo_de_producto', 'categoria', 'marca', 'precio', 'stock', 'color', 'talla', 'imagen']
 
             
 

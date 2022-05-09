@@ -13,6 +13,7 @@ urlpatterns = [
     path('registroprov/', views.registroprov, name='registroprov'),
     path('registroprod/', views.registroprod, name='registroprod'),
     path('listadoprod/', views.listadoprod, name='listadoprod'),
+    path('catalogoprod/', views.catalogoprod, name='catalogoprod'),
     path('register_user/',views.register_user, name='register_user'),
     path('login/',views.login_user, name='login'),
     path('logout/',views.logout_user, name='logout'),

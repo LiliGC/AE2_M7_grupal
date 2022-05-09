@@ -43,11 +43,19 @@ def proveedores(request):
 
 @login_required
 def listadoprod(request):
-    producto=Producto.objects.all().values()
+    producto=Producto.objects.all()
     context = {
     'productos': producto,
     }
     return render(request, 'tienda/listadoprod.html', context)
+
+def catalogoprod(request):
+    producto=Producto.objects.all()
+    context = {
+    'productos': producto,
+    }
+    return render(request, 'tienda/catalogoprod.html', context)
+
 
 @staff_member_required
 @login_required
