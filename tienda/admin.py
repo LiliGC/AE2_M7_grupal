@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Cliente
 from .models import Proveedor
 from .models import Producto
+from .models import Contacto
 # Register your models here.
 
 class ProductoAdmin(admin.ModelAdmin):
@@ -16,3 +17,5 @@ admin.site.register(Cliente)
 admin.site.register(Proveedor)
 
 admin.site.register(Producto, ProductoAdmin)
+
+admin.site.register(Contacto)

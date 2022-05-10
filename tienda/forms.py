@@ -43,7 +43,7 @@ class ProductoForm(ModelForm):
 class ContactoForm(ModelForm):
     class Meta:
         model=Contacto
-        fields=['nombre', 'correo_electronico', 'tipo_consulta', 'mensaje', 'avisos']           
+        fields=['nombre', 'correo_electronico', 'tipo_consulta', 'mensaje']           
 
             
     

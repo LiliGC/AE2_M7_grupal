@@ -123,7 +123,7 @@ def contactocl(request):
             contacto.nombre=form.cleaned_data["nombre"]
             contacto.correo_electronico=form.cleaned_data["correo_electronico"]
             contacto.tipo_consulta=form.cleaned_data["tipo_consulta"]
-            contacto.aviso=form.cleaned_data["aviso"]
+            contacto.mensaje=form.cleaned_data["mensaje"]
             contacto.save()
             messages.success(request, 'Su  mensaje ha sido enviado satisfactoriamente')
         else: messages.error('Inválido')
@@ -132,12 +132,14 @@ def contactocl(request):
         form=ContactoForm() 
         return render(request, 'tienda/contactocl.html', {"form":form}) 
 
+def data_contactos(correo_electronico):
+    contacto=Contacto.objects.filter(correo_electronico='correo_electronico').values()
+    return contacto
 
 @login_required
-def contactomod(request):
-    contacto=Contacto.objects.filter("correo_electronico")
+def contactomod(request, correo_electronico):
     context = {
-    'contactos': contacto,
+    'contactos': data_contactos,
     }
     return render(request, 'tienda/contactomod.html', context)
 
