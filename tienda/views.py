@@ -5,10 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
-from .forms import ProveedorForm, ProductoForm
-from .models import Cliente
-from .models import Proveedor
-from .models import Producto
+from .forms import ProveedorForm, ProductoForm, ContactoForm
+from .models import Cliente, Proveedor, Producto, Contacto
+
 
 
 # Create your views here.
@@ -110,6 +109,37 @@ def registroprod(request):
         form=ProductoForm() 
         return render(request, 'tienda/registroprod.html', {"form":form}) 
 
+@login_required
+def contactocl(request):
+
+    form=ContactoForm()
+
+    if request.method == 'POST':
+		
+        form = ContactoForm(request.POST)
+
+        if form.is_valid():
+            contacto=Contacto()
+            contacto.nombre=form.cleaned_data["nombre"]
+            contacto.correo_electronico=form.cleaned_data["correo_electronico"]
+            contacto.tipo_consulta=form.cleaned_data["tipo_consulta"]
+            contacto.aviso=form.cleaned_data["aviso"]
+            contacto.save()
+            messages.success(request, 'Su  mensaje ha sido enviado satisfactoriamente')
+        else: messages.error('Inválido')
+        return redirect('index')
+    else:
+        form=ContactoForm() 
+        return render(request, 'tienda/contactocl.html', {"form":form}) 
+
+
+@login_required
+def contactomod(request):
+    contacto=Contacto.objects.filter("correo_electronico")
+    context = {
+    'contactos': contacto,
+    }
+    return render(request, 'tienda/contactomod.html', context)
 
 def register_user(request):
 	if request.method == "POST":

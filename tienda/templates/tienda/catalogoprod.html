@@ -11,21 +11,22 @@
 
         {% for p in productos %}
 
-        <div class="container-fluid">
+        <div class="producto">
 
-            <div class= "col-md-6 col-sm-3 inline-block">
+            <div class= "contenedor_producto">
             
                 {% if p.imagen %}
-                    <img src="{{ p.imagen.url }}" alt="imagen producto" style= "width:30%;height:30%;">
+                    <img src="{{ p.imagen.url }}" alt="imagen producto">
                 {% endif %}
                 <div class="detalle">
-                    <h5>{{ p.marca | capfirst }}</h5>
-                    <h2>{{ p.nombre | title }}</h2>
-                    <h3>${{ p.precio | intcomma }}</h3>
+                    <h6 class="text-dark text-start">{{ p.marca | capfirst }}</h6>
+                    <h4 class="text-dark text-start">{{ p.nombre | title }}</h4>
+                    <h5 class="text-dark text-start">${{ p.precio | intcomma }}</h5>
                 </div>  
             </div>  
         </div>
         {% endfor %}  
-    </div>  
-
+    </div>
+    <br>
+    <br>  
 {% endblock %}

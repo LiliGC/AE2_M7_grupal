@@ -2,8 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from django.forms import ModelForm
-from .models import Proveedor
-from .models import Producto
+from .models import Proveedor, Producto, Contacto
 
 
 class ProveedorForm(ModelForm):
@@ -34,12 +33,17 @@ class NewUserForm(UserCreationForm):
 			user.save()
 		return user
 
+
 class ProductoForm(ModelForm):
     class Meta:
         model=Producto
         fields=['nombre', 'tipo_de_producto', 'categoria', 'marca', 'precio', 'stock', 'color', 'talla', 'imagen']
 
-            
+
+class ContactoForm(ModelForm):
+    class Meta:
+        model=Contacto
+        fields=['nombre', 'correo_electronico', 'tipo_consulta', 'mensaje', 'avisos']           
 
             
     
