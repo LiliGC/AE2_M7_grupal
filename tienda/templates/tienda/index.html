@@ -20,7 +20,7 @@
       <a class="navbar-brand" href="{% url 'index' %}">
         <img src="https://cutt.ly/LOmvmt0" alt="Logo" style="width:40px;" class="rounded-pill">
       </a>
-      <h1>Bienvenidos Te lo vendo</h1>
+      <h1>Te lo vendo</h1>
       {% block sidebar %}
         <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
           <div class="container-fluid">
@@ -33,10 +33,10 @@
                   <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'listadoprod' %}">Productos</a>
+                  <a class="nav-link" href="{% url 'catalogoprod' %}">Catálogo de Productos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'registroprod' %}">Registro de Productos</a>
+                  <a class="nav-link" href="{% url 'listadoprod' %}">Listado de Productos</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
@@ -52,17 +52,17 @@
                   <a class="nav-link" href="{% url 'registroprov' %}">Registro Proveedores</a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="{% url 'registroprod' %}">Registro de Productos</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}">Salir</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                  <a class="nav-link" href="/login">Iniciar sesión</a>
+                  <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/register_user">Registrar</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'catalogoprod' %}">Productos</a>
+                  <a class="nav-link" href="{% url 'register_user' %}">Registrarse</a>
                 </li>
               {% endif %}
             </ul>

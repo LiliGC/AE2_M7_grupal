@@ -15,9 +15,12 @@ from .models import Cliente, Proveedor, Producto, Contacto
 def index(request):
     return render(request, 'tienda/index.html')
 
+@staff_member_required
+@login_required
 def estadistica(request):
     return render(request, 'tienda/estadistica.html')
 
+@staff_member_required
 @login_required
 def clientes(request):
     cliente=Cliente.objects.all().values()
@@ -91,7 +94,7 @@ def registroprod(request):
 
     if request.method == 'POST':
 		
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.files)
 
         if form.is_valid():
             producto=Producto()
@@ -142,10 +145,16 @@ def contacto_edit(request,pk):
         if form.is_valid():
             contacto = form.save(commit=False)
             contacto.save()
-            return redirect('contacto', pk=contacto.pk)
+            return redirect('listacontactos')
     else:
         form = ContactoForm(instance=contacto)
     return render(request, 'tienda/contacto_edit.html', {'form': form})
+
+@login_required
+def contacto_delete(request,pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    contacto.delete()
+    return ('listacontactos')
 
 def register_user(request):
 	if request.method == "POST":

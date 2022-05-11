@@ -2,11 +2,11 @@ from django.urls import path
 from django.contrib import admin  
 from . import views
 
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('contacto/', views.contacto, name='contacto'),
-    path('contacto/<int:pk>/edit/', views.contacto_edit, name='contacto_edit'),
+    path('contacto_edit/<int:pk>/', views.contacto_edit, name='contacto_edit'),
+    path('contacto_delete/<int:pk>/', views.contacto_delete, name='contacto_delete'),
     path('estadistica/', views.estadistica, name='estadistica'),
     path('clientes/', views.clientes, name='clientes'),
     path('proveedores/', views.proveedores, name='proveedores'),

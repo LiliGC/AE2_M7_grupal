@@ -16,6 +16,7 @@
                             <th scope="col">Correo electrónico</th>
                             <th scope="col">Tipo de consulta</th>
                             <th scope="col">Mensaje</th>
+                            <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,6 +27,8 @@
                             <td>{{ c.correo_electronico }}</td>
                             <td>{{ c.tipo_consulta }}</td>
                             <td>{{ c.mensaje }}</td>
+                            <td><a href="{% url 'contacto_edit' c.pk %}" class="btn btn-info">Editar</a>
+                                <a href="{% url 'contacto_delete' c.pk %}" class="btn btn-danger">Eliminar</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
