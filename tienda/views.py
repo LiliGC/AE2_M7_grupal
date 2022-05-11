@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProveedorForm, ProductoForm, ContactoForm
 from .models import Cliente, Proveedor, Producto, Contacto
 
@@ -15,14 +15,8 @@ from .models import Cliente, Proveedor, Producto, Contacto
 def index(request):
     return render(request, 'tienda/index.html')
 
-def contacto(request):
-    return render(request, 'tienda/contacto.html')
-
 def estadistica(request):
     return render(request, 'tienda/estadistica.html')
-
-def confirmacion(request):
-    return render(request, 'tienda/confirmacion.html')
 
 @login_required
 def clientes(request):
@@ -110,7 +104,7 @@ def registroprod(request):
         return render(request, 'tienda/registroprod.html', {"form":form}) 
 
 @login_required
-def contactocl(request):
+def contacto(request):
 
     form=ContactoForm()
 
@@ -130,18 +124,20 @@ def contactocl(request):
         return redirect('index')
     else:
         form=ContactoForm() 
-        return render(request, 'tienda/contactocl.html', {"form":form}) 
-
-def data_contactos(correo_electronico):
-    contacto=Contacto.objects.filter(correo_electronico='correo_electronico').values()
-    return contacto
+        return render(request, 'tienda/contacto.html', {"form":form}) 
 
 @login_required
-def contactomod(request, correo_electronico):
-    context = {
-    'contactos': data_contactos,
-    }
-    return render(request, 'tienda/contactomod.html', context)
+def contacto_edit(request,pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    if request.method == "POST":
+        form = ContactoForm(request.POST, instance=contacto)
+        if form.is_valid():
+            contacto = form.save(commit=False)
+            contacto.save()
+            return redirect('contacto', pk=contacto.pk)
+    else:
+        form = ContactoForm(instance=contacto)
+    return render(request, 'tienda/contacto_edit.html', {'form': form})
 
 def register_user(request):
 	if request.method == "POST":

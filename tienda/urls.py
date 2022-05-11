@@ -6,10 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('contacto/', views.contacto, name='contacto'),
-    path('contactocl/', views.contactocl, name='contactocl'),
-    path('contactomod/<correo_electronico>', views.contactomod, name='contactomod'),
+    path('contacto/<int:pk>/edit/', views.contacto_edit, name='contacto_edit'),
     path('estadistica/', views.estadistica, name='estadistica'),
-    path('confirmacion/', views.confirmacion, name='confirmacion'),
     path('clientes/', views.clientes, name='clientes'),
     path('proveedores/', views.proveedores, name='proveedores'),
     path('registroprov/', views.registroprov, name='registroprov'),
