@@ -35,6 +35,14 @@ def proveedores(request):
     return render(request, 'tienda/proveedores.html', context)
 
 @login_required
+def listacontactos(request):
+    contacto=Contacto.objects.all()
+    context = {
+    'contactos': contacto,
+    }
+    return render(request, 'tienda/listacontactos.html', context)
+
+@login_required
 def listadoprod(request):
     producto=Producto.objects.all()
     context = {
