@@ -145,6 +145,7 @@ def contacto_edit(request,pk):
         if form.is_valid():
             contacto = form.save(commit=False)
             contacto.save()
+            messages.success(request, 'Su mensaje se ha modificado con éxito')
             return redirect('listacontactos')
     else:
         form = ContactoForm(instance=contacto)
@@ -154,7 +155,8 @@ def contacto_edit(request,pk):
 def contacto_delete(request,pk):
     contacto = get_object_or_404(Contacto, pk=pk)
     contacto.delete()
-    return ('listacontactos')
+    messages.warning(request, 'Esta seguro que desea eliminar su mensaje?')        
+    return redirect('listacontactos')
 
 def register_user(request):
 	if request.method == "POST":
