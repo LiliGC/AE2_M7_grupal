@@ -98,9 +98,13 @@ WSGI_APPLICATION = 'telovendo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'tienda_telovendo',
+            'USER': 'root',
+            'PASSWORD': 'Ri/ri87@15Cl14',
+            'HOST': '127.0.0.1',
+            'PORT': '3306'
+        }
 }
 
 
