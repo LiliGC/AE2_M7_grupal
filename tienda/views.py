@@ -4,11 +4,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render, redirect
-from .forms import ProveedorForm, ProductoForm
-from .models import Cliente
-from .models import Proveedor
-from .models import Producto
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ProveedorForm, ProductoForm, ContactoForm
+from .models import Cliente, Proveedor, Producto, Contacto
+
 
 
 # Create your views here.
@@ -16,15 +15,12 @@ from .models import Producto
 def index(request):
     return render(request, 'tienda/index.html')
 
-def contacto(request):
-    return render(request, 'tienda/contacto.html')
-
+@staff_member_required
+@login_required
 def estadistica(request):
     return render(request, 'tienda/estadistica.html')
 
-def confirmacion(request):
-    return render(request, 'tienda/confirmacion.html')
-
+@staff_member_required
 @login_required
 def clientes(request):
     cliente=Cliente.objects.all().values()
@@ -42,12 +38,28 @@ def proveedores(request):
     return render(request, 'tienda/proveedores.html', context)
 
 @login_required
+def listacontactos(request):
+    contacto=Contacto.objects.all()
+    context = {
+    'contactos': contacto,
+    }
+    return render(request, 'tienda/listacontactos.html', context)
+
+@login_required
 def listadoprod(request):
-    producto=Producto.objects.all().values()
+    producto=Producto.objects.all()
     context = {
     'productos': producto,
     }
     return render(request, 'tienda/listadoprod.html', context)
+
+def catalogoprod(request):
+    producto=Producto.objects.all()
+    context = {
+    'productos': producto,
+    }
+    return render(request, 'tienda/catalogoprod.html', context)
+
 
 @staff_member_required
 @login_required
@@ -82,7 +94,7 @@ def registroprod(request):
 
     if request.method == 'POST':
 		
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.files)
 
         if form.is_valid():
             producto=Producto()
@@ -102,6 +114,49 @@ def registroprod(request):
         form=ProductoForm() 
         return render(request, 'tienda/registroprod.html', {"form":form}) 
 
+@login_required
+def contacto(request):
+
+    form=ContactoForm()
+
+    if request.method == 'POST':
+		
+        form = ContactoForm(request.POST)
+
+        if form.is_valid():
+            contacto=Contacto()
+            contacto.nombre=form.cleaned_data["nombre"]
+            contacto.correo_electronico=form.cleaned_data["correo_electronico"]
+            contacto.tipo_consulta=form.cleaned_data["tipo_consulta"]
+            contacto.mensaje=form.cleaned_data["mensaje"]
+            contacto.save()
+            messages.success(request, 'Su  mensaje ha sido enviado satisfactoriamente')
+        else: messages.error('Inválido')
+        return redirect('index')
+    else:
+        form=ContactoForm() 
+        return render(request, 'tienda/contacto.html', {"form":form}) 
+
+@login_required
+def contacto_edit(request,pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    if request.method == "POST":
+        form = ContactoForm(request.POST, instance=contacto)
+        if form.is_valid():
+            contacto = form.save(commit=False)
+            contacto.save()
+            messages.success(request, 'Su mensaje se ha modificado con éxito')
+            return redirect('listacontactos')
+    else:
+        form = ContactoForm(instance=contacto)
+    return render(request, 'tienda/contacto_edit.html', {'form': form})
+
+@login_required
+def contacto_delete(request,pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    contacto.delete()
+    messages.warning(request, 'Esta seguro que desea eliminar su mensaje?')        
+    return redirect('listacontactos')
 
 def register_user(request):
 	if request.method == "POST":

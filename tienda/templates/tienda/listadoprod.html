@@ -1,4 +1,4 @@
-{% extends './estadistica.html' %}
+{% extends './index.html' %}
 
 {% block title %}<title>Lista de productos</title>{% endblock %}
 
@@ -34,7 +34,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href= {% url 'registroprov' %}>Agregar proveedor</a>
+                <a href= "{% url 'registroprod' %}" class="btn btn-info">Agregar producto</a>
             </div>
         </div>
     </div>
