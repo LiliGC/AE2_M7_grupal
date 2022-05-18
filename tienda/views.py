@@ -46,6 +46,15 @@ def listacontactos(request):
     return render(request, 'tienda/listacontactos.html', context)
 
 @login_required
+def mismensajes(request):
+    email=request.user.email
+    mensaje=Contacto.objects.filter(correo_electronico=email).all()
+    context = {
+    'mensajes': mensaje,
+    }
+    return render(request, 'tienda/mismensajes.html', context)
+
+@login_required
 def listadoprod(request):
     producto=Producto.objects.all()
     context = {
