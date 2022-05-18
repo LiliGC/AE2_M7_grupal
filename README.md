@@ -15,6 +15,6 @@ Instrucciones instalación:
 - Instalar el archivo de requirements.txt
 - Hacer las migraciones, makemigrations y luego migrate.
 - Crear el superusuario o proceder a cargar el archivo de datos que usamos el que nombramos data.json mediante:
-```python manage.py loaddata data.json```
+`python manage.py loaddata data.json`
 - Aplicar el comando `migrate`.
-- Y por ultimo correr el servidor con python manage.py runserver.
+- Y por último correr el servidor con `python manage.py runserver`.
