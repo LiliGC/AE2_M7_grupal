@@ -16,6 +16,6 @@ Instrucciones instalación:
 - Hacer las migraciones, makemigrations y luego migrate.
 - Crear el superusuario o proceder a cargar el archivo de datos que usamos el que nombramos data.json mediante:
 
-<p align="center">`python manage.py loaddata data.json`</p>
+`<p align="center">python manage.py loaddata data.json</p>´
 - Aplicar el comando `migrate`.
 - Y por último correr el servidor con `python manage.py runserver`.
