@@ -12,7 +12,7 @@ Instrucciones instalación:
 
 - Clonar el repositorio
 - Crear el entorno virtual
-- Instalar el archivo de requirements.txt
+- Instalar el archivo de requirements.txt mediante el comando: `pip install -r requirements.txt`
 - Hacer las migraciones, makemigrations y luego migrate.
 - Crear el superusuario o proceder a cargar el archivo de datos que usamos el que nombramos data.json mediante:
 `python manage.py loaddata data.json´
